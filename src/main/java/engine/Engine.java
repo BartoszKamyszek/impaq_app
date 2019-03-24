@@ -4,19 +4,33 @@ import main.java.input.Scanner;
 import main.java.output.DisplayLcd;
 import main.java.output.Printer;
 import main.java.product.Product;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class Engine {
 
-    private Map<String, Product> ListOfProducts;
+    private Map<String, Product> listOfProducts;
     private Printer printer;
     private Scanner scanner;
-    private DisplayLcd display;
+    private DisplayLcd displayLcd;
 
     private String enteredBarcode;
 
-    public Engine() {
+    public Engine() throws IOException, SAXException, ParserConfigurationException {
+
+        XmlParser xmlParser = new XmlParser();
+        listOfProducts = xmlParser.getAllProducts();
+
+        Map<EnumEngine, Runnable> commandMap = new EnumMap<>(EnumEngine.class);
+        setCommandConditions(commandMap);
+
+        displayLcd = new DisplayLcd();
+        printer = new Printer();
+        scanner = new Scanner(commandMap, listOfProducts);
 
     }
     public void startEngine(String enteredBarcode){
@@ -25,10 +39,10 @@ public class Engine {
     }
 
     private void productFound() {
-        addProduct(ListOfProducts.get(enteredBarcode));
+        addProduct(listOfProducts.get(enteredBarcode));
     }
     private void addProduct(Product product) {
-        display.scanProduct(product);
+        displayLcd.scanProduct(product);
         printer.scanProduct(product);
     }
     private void endTransaction() {
@@ -38,8 +52,8 @@ public class Engine {
     private void setCommandConditions(Map<EnumEngine, Runnable> commandMap) {
         commandMap.put(EnumEngine.PRODUCT_FOUND, this::productFound);
         commandMap.put(EnumEngine.EXIT_CODE, this::endTransaction)
-        commandMap.put(EnumEngine.INVALID_BARCODE, () -> display.showInvalidBarcode());
-        commandMap.put(EnumEngine.PRODUCT_NOT_FOUND, () -> display.showProductNotFound());
+        commandMap.put(EnumEngine.INVALID_BARCODE, () -> displayLcd.showInvalidBarcode());
+        commandMap.put(EnumEngine.PRODUCT_NOT_FOUND, () -> displayLcd.showProductNotFound());
        ;
     }
 }
