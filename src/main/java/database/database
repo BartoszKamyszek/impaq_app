@@ -1,0 +1,26 @@
+<pointOfSale>
+    <product barcode = "001">
+        <productName>Cheese</productName>
+        <productPrice>3.50</productPrice>
+    </product>
+    <product barcode = "002">
+        <productName>Bread</productName>
+        <productPrice>2.55</productPrice>
+    </product>
+    <product barcode = "003">
+        <productName>Butter</productName>
+        <productPrice>10</productPrice>
+    </product>
+    <product barcode = "004">
+        <productName>Coke</productName>
+        <productPrice>5.30</productPrice>
+    </product>
+    <product barcode = "005">
+        <productName>Ham</productName>
+        <productPrice>8.99</productPrice>
+    </product>
+    <product barcode = "006">
+        <productName>Meat</productName>
+        <productPrice>13.84</productPrice>
+    </product>
+</pointOfSale>
