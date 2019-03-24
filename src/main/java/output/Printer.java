@@ -7,12 +7,12 @@ import java.util.List;
 
 public class Printer extends Output{
     private List<Product> scannedProducts = new ArrayList<>();
-    private int totalSum = 0;
+    private double totalSum = 0;
 
     private void totalOut() {
         System.out.println(TRANSACTION_FINISHED_MESSAGE);
         for (Product x: scannedProducts) {
-            System.out.println("PRODUCT #");
+            System.out.println("####### PRODUCT #######" );
             productDetails(x);
         }
         printTotalSumOfProducts();

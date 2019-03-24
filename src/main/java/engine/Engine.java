@@ -51,7 +51,7 @@ public class Engine {
     }
     private void setCommandConditions(Map<EnumEngine, Runnable> commandMap) {
         commandMap.put(EnumEngine.PRODUCT_FOUND, this::productFound);
-        commandMap.put(EnumEngine.EXIT_CODE, this::endTransaction)
+        commandMap.put(EnumEngine.EXIT_CODE, this::endTransaction);
         commandMap.put(EnumEngine.INVALID_BARCODE, () -> displayLcd.showInvalidBarcode());
         commandMap.put(EnumEngine.PRODUCT_NOT_FOUND, () -> displayLcd.showProductNotFound());
        ;

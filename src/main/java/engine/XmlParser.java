@@ -1,11 +1,11 @@
 package main.java.engine;
 
+import main.java.product.Product;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import main.java.product.Product;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,7 +22,7 @@ public class XmlParser {
     private static final String NODE_ATTRIBUTE = "barcode";
     private static final String NODE_NAME_TAG = "productName";
     private static final String NODE_PRICE_TAG = "productPrice";
-    private static final String XML_PATH = "src/main/java/database/database.xml";
+    private static final String XML_PATH = "src/main/java/database/database";
     private HashMap<String, Product> listOfProducts;
 
     private File xmlFile = Paths.get(".", XML_PATH).normalize().toFile();
@@ -45,7 +45,7 @@ public class XmlParser {
                 Product product = new Product();
                 product.setBarcode(element.getAttribute(NODE_ATTRIBUTE));
                 product.setName(element.getElementsByTagName(NODE_NAME_TAG).item(0).getTextContent());
-                product.setPrice(Integer.parseInt(element.getElementsByTagName(NODE_PRICE_TAG).item(0).getTextContent()));
+                product.setPrice(Double.parseDouble(element.getElementsByTagName(NODE_PRICE_TAG).item(0).getTextContent()));
                 products.put(product.getBarcode(), product);
             }
         }
